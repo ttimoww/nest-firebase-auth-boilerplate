@@ -19,17 +19,15 @@ export class AuthGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const authHeader = request.headers.authorization;
         if (!authHeader) return false;
-
         const authToken = authHeader.replace('Bearer ', '');
          
-        const user = await this.authService.validateUserSession(authToken);
+        // Check if Bearer token is valid
+        const { uid } = await this.authService.validateUserSession(authToken);
+ 
+        // Get the User from Firestore DB
+        const user = await this.authService.getUser(uid);
+        request.user = user;
 
-        /**
-         * Todo:
-         * 1. Get the User from the DB
-         * 2. Check if user has the right Roles (requiredRoles)
-         */
-        
         return !!user;
     }
 }
