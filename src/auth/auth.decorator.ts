@@ -1,8 +1,8 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
+import { Role } from './../user/role.enum';
 
-export function Auth(roles: string[]): MethodDecorator {
+export function Auth(roles: Role[]): MethodDecorator {
     return applyDecorators(
         SetMetadata('roles', roles),
-        // For Swagger settings, see fr-backend
     );
 }

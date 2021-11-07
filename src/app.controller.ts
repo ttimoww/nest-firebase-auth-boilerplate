@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Auth } from './auth/auth.decorator';
+import { Role } from './user/role.enum';
 
 @Controller()
 export class AppController {
@@ -12,7 +13,7 @@ export class AppController {
         return this.appService.getHello();
     }
 
-  @Auth(['RoleName'])
+  @Auth([Role.user])
   @Get('/secret')
   getTest(): string {
       return this.appService.getProtectedHello();
