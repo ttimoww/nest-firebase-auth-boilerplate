@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 
         const request = context.switchToHttp().getRequest();
         const authHeader = request.headers.authorization;
-        if (!authHeader) return false;
+        if (!authHeader) throw new UnauthorizedException();
         const authToken = authHeader.replace('Bearer ', '');
          
         // Check if Bearer token is valid
